@@ -2,4 +2,6 @@
 infra code.
 
 ## directory
-- cloudormation template
+- cloudormation
+    - cloudformation template.
+- xxx
