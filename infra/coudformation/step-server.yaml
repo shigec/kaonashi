@@ -52,7 +52,7 @@ Resources:
       UserData: !Base64 |
         #!/bin/bash
         yum update -y
-        yum install python36 -y
+        yum install python36 python36-devel -y
         yum install mysql mysql-devel -y
         yum install gcc -y
         yum install git -y
