@@ -1,0 +1,67 @@
+swagger: "2.0"
+info:
+  description: "It is an API for managing kaonashi information.."
+  version: "1.0.0"
+  title: "Kaonashi API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost"
+basePath: "/v1"
+tags:
+- name: "employee"
+  description: "Abtou employee infomation."
+- name: "skill"
+  description: "About skill infomation."
+schemes:
+- "http"
+paths:
+  /employees:
+    get:
+      tags:
+      - "employee"
+      summary: "Find employee list."
+      description: "Find employee list."
+      operationId: "findEmployees"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "Acceptable item limit."
+        required: false
+        type: "integer"
+      responses:
+        "200":
+          description: "successful operation"
+        "503":
+          description: "Internal server error."
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${EmployeesFunction.Arn}/invocations
+        passthroughBehavior: "when_no_match"
+        httpMethod: POST
+        type: aws_proxy
+definitions:
+  employee:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+  employees:
+    type: "array"
+    items:
+      $ref: '#/definitions/employee'
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
