@@ -6,6 +6,7 @@ echo "** Start to deploy and build. **"
 mkdir -p deploy
 pip3 install -r src/requirements.txt -t deploy
 cp -r src/* deploy
+cp /usr/lib64/mysql/libmysqlclient.so.18 deploy
 cd deploy
 zip -r ../kaonashi-function.zip *
 cd ..
